@@ -1,33 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
+import { sendMessageRequest } from "../../store/actions";
 
 import "./ChatList.css";
 
 const ChatList = () => {
-  const fetchPosts = async () => {
-    const response = await fetch(
-      "http://jsonplaceholder.typicode.com/comments?_start=0&_limit=20/"
-    );
-    const data = await response.json();
-    updateMessages(data);
-  };
+  const messages = useSelector(state => state.messages);
 
-  const [messages, updateMessages] = useState([]);
-
-  useEffect(() => {
-    fetchPosts();
-  }, [messages]);
+  // useEffect(() => {
+  //   fetchPosts();
+  // }, []);
 
   return (
     <div className="chatlist">
       {messages.map(message => (
-        <div className="message">
+        <div key={message.author} className="message">
           <img
             className="avatar"
             src="https://api.adorable.io/avatars/50/abott@adorable.png"
             alt="avatar"
           />
-          <div className="name">{message.email}</div>
-          {message.body}
+          <div className="name">{message.author}</div>
+          {message.message}
         </div>
       ))}
       <div />

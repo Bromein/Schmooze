@@ -33,7 +33,7 @@ const Sidebar = () => {
       <ul>
         {activeUsers.map(user =>
           user.online ? (
-            <li>
+            <li key={user.profileId}>
               <a href={user.profileId}>{user.name}</a>
             </li>
           ) : null
